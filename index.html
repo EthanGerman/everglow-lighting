@@ -1157,18 +1157,34 @@
       }
 
       .hero-image-wrap::before {
-        background: linear-gradient(to top, var(--bg) 35%, rgba(9,9,9,0.5) 100%);
+        background: linear-gradient(to bottom,
+          rgba(9,9,9,0.75) 0%,
+          rgba(9,9,9,0.2) 30%,
+          rgba(9,9,9,0.2) 65%,
+          var(--bg) 100%
+        );
+      }
+
+      .hero-img {
+        object-position: center 40%;
+        transform: scale(1.35);
+        transform-origin: center 40%;
       }
 
       .hero-text {
         position: relative;
         z-index: 2;
-        justify-content: flex-end;
-        padding: 0 1.25rem 5rem;
+        justify-content: flex-start;
+        padding: 5.5rem 1.25rem 4rem;
         min-height: 100dvh;
       }
 
-      .hero-h1 { font-size: clamp(2.4rem, 10vw, 3.5rem); }
+      .hero-h1 { font-size: clamp(2.4rem, 10vw, 3.5rem); margin-bottom: 0; }
+
+      .hero-sub {
+        margin-top: auto;
+        margin-bottom: 1.5rem;
+      }
 
       .hero-ctas {
         flex-direction: column;
