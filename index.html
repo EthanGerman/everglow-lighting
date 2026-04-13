@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Everglow Lighting | Permanent LED Trim Lighting | Central Valley CA</title>
   <meta name="description" content="Professional permanent LED trim lighting in Bakersfield, Fresno, Visalia, and Exeter. Installed once, app controlled, zero maintenance. Call or text 559-748-2102." />
 
@@ -12,7 +12,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; min-width: 0; }
+    img, video, iframe { max-width: 100%; display: block; }
 
     :root {
       --gold: #93D9F2;
@@ -26,7 +27,9 @@
       --body: 'DM Sans', system-ui, sans-serif;
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; width: 100%; }
+    body { overflow-x: hidden; width: 100%; position: relative; }
+    .page-wrap { width: 100%; position: relative; }
 
     body {
       background: var(--bg);
@@ -34,7 +37,6 @@
       font-family: var(--body);
       font-size: 16px;
       line-height: 1.6;
-      overflow-x: hidden;
     }
 
     /* Grain overlay */
@@ -282,6 +284,10 @@
     /* ─── MARQUEE ─── */
     #marquee {
       overflow: hidden;
+      max-width: 100%;
+      width: 100%;
+      clip-path: inset(0 0 0 0);
+      position: relative;
       border-top: 1px solid rgba(201, 168, 76, 0.25);
       border-bottom: 1px solid rgba(201, 168, 76, 0.25);
       background: rgba(201, 168, 76, 0.04);
@@ -470,40 +476,34 @@
       margin: 0 auto;
     }
 
-    .stakes-col {
-      padding: 3.5rem;
-      border: 1px solid var(--border);
-    }
-
-    .stakes-col.without {
-      border-right: none;
-    }
-
     .stakes-col-label {
       font-size: 0.72rem;
       font-weight: 600;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      margin-bottom: 2rem;
       display: flex;
       align-items: center;
       gap: 0.75rem;
+      padding: 2rem 2.5rem;
+      border: 1px solid var(--border);
     }
 
-    .stakes-col.without .stakes-col-label { color: var(--text-dim); }
-    .stakes-col.with .stakes-col-label { color: var(--gold); }
+    .stakes-col-label.without { border-right: none; color: var(--text-dim); }
+    .stakes-col-label.with { color: var(--gold); }
 
     .stakes-item {
       display: flex;
       align-items: flex-start;
       gap: 1rem;
-      padding: 1rem 0;
-      border-bottom: 1px solid var(--border);
+      padding: 1rem 2.5rem;
+      border: 1px solid var(--border);
+      border-top: none;
       font-size: 0.9rem;
       line-height: 1.6;
     }
 
-    .stakes-item:last-child { border-bottom: none; }
+    .stakes-item.without { border-right: none; color: var(--text-dim); }
+    .stakes-item.with { color: var(--text); }
 
     .stakes-icon-x {
       color: rgba(232, 228, 220, 0.25);
@@ -516,9 +516,6 @@
       flex-shrink: 0;
       margin-top: 2px;
     }
-
-    .stakes-col.without .stakes-item { color: var(--text-dim); }
-    .stakes-col.with .stakes-item { color: var(--text); }
 
     /* ─── GALLERY ─── */
     #gallery {
@@ -1132,6 +1129,9 @@
     }
 
     @media (max-width: 768px) {
+      #marquee { display: none; }
+      body > *, section, nav, footer, div { max-width: 100%; overflow-x: hidden; }
+
       nav {
         grid-template-columns: 1fr auto auto;
         padding: 1rem 1.25rem;
@@ -1183,12 +1183,17 @@
       .bento-grid {
         grid-template-columns: 1fr;
         grid-template-rows: none;
+        gap: 2px;
       }
 
       .bento-item {
         grid-column: auto !important;
         grid-row: auto !important;
-        height: 220px;
+        height: 280px;
+      }
+
+      .bento-item img {
+        object-position: center 20%;
       }
 
       .steps-grid { grid-template-columns: 1fr; }
@@ -1213,7 +1218,7 @@
       .footer-right { justify-content: center; }
       .footer-logo { display: flex; justify-content: center; }
       .footer-logo img { height: 52px; }
-      .gallery-header { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+      .gallery-header { flex-direction: column; align-items: flex-start; gap: 0.75rem; padding: 0 1.25rem; }
 
       /* touch-friendly inputs */
       .consult-form input,
@@ -1226,7 +1231,7 @@
       #stats { padding: 4rem 1.25rem; }
       #problem { padding: 4rem 1.25rem; }
       #stakes { padding: 4rem 1.25rem; }
-      #gallery { padding: 4rem 1.25rem; }
+      #gallery { padding: 4rem 0; }
       #how { padding: 4rem 1.25rem; }
       #why { padding: 4rem 1.25rem; }
       #cta { padding: 5rem 1.25rem; }
@@ -1240,13 +1245,17 @@
       .feature-name { font-size: 1.1rem; }
       .problem-bridge-text { font-size: clamp(1.2rem, 5vw, 1.6rem); }
 
-      /* stakes side by side still works on mobile */
-      .stakes-grid { grid-template-columns: 1fr 1fr; }
-      .stakes-col.without { border-right: 1px solid var(--border); border-bottom: none; }
+      .stakes-grid { grid-template-columns: 1fr; }
+      .stakes-col-label { display: none; }
+      .stakes-item { padding: 1rem 1.25rem; border: none; border-bottom: 1px solid var(--border); }
+      .stakes-item.without { border-right: none; color: var(--text-dim); margin-top: 1.25rem; border-top: 1px solid var(--border); border-bottom: none; }
+      .stakes-item.with { border-bottom: none; }
+      .stakes-item.without:first-of-type { margin-top: 0; border-top: none; }
     }
   </style>
 </head>
 <body>
+<div class="page-wrap">
 
   <!-- NAV -->
   <nav id="main-nav" role="navigation" aria-label="Main navigation">
@@ -1570,62 +1579,60 @@
       <h2>Two versions of your home.</h2>
       <p>Only one of them turns heads every night.</p>
     </div>
-    <div class="stakes-grid">
-      <div class="stakes-col without reveal">
-        <div class="stakes-col-label">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-            <path d="M3 3l8 8M11 3l-8 8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-          </svg>
-          Without Everglow
-        </div>
-        <div class="stakes-item">
-          <svg class="stakes-icon-x" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>
-          Ladder out every November, back in January
-        </div>
-        <div class="stakes-item">
-          <svg class="stakes-icon-x" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>
-          Tangled cords, blown bulbs, crooked strands
-        </div>
-        <div class="stakes-item">
-          <svg class="stakes-icon-x" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>
-          Your home dark and plain 10 months a year
-        </div>
-        <div class="stakes-item">
-          <svg class="stakes-icon-x" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>
-          Miss every holiday, every game night, every occasion
-        </div>
-        <div class="stakes-item">
-          <svg class="stakes-icon-x" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>
-          Another year goes by. Same routine. Nothing changes.
-        </div>
+    <div class="stakes-grid reveal">
+      <!-- Column headers (desktop) -->
+      <div class="stakes-col-label without">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 3l8 8M11 3l-8 8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+        Without Everglow
       </div>
-      <div class="stakes-col with reveal" style="transition-delay: 0.15s">
-        <div class="stakes-col-label">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-            <path d="M2 7l4 4 6-7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          With Everglow
-        </div>
-        <div class="stakes-item">
-          <svg class="stakes-icon-check" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8l4 4 6-7" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Lights come on automatically every night. Zero effort.
-        </div>
-        <div class="stakes-item">
-          <svg class="stakes-icon-check" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8l4 4 6-7" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Any color, any schedule, from your phone in seconds
-        </div>
-        <div class="stakes-item">
-          <svg class="stakes-icon-check" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8l4 4 6-7" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Your home stands out 365 nights a year
-        </div>
-        <div class="stakes-item">
-          <svg class="stakes-icon-check" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8l4 4 6-7" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Every holiday nailed. Every occasion covered. Automatically.
-        </div>
-        <div class="stakes-item">
-          <svg class="stakes-icon-check" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8l4 4 6-7" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          One install. One afternoon. Done for the next thirty years.
-        </div>
+      <div class="stakes-col-label with">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7l4 4 6-7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        With Everglow
+      </div>
+      <!-- Pair 1 -->
+      <div class="stakes-item without">
+        <svg class="stakes-icon-x" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>
+        Ladder out every November, back in January
+      </div>
+      <div class="stakes-item with">
+        <svg class="stakes-icon-check" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8l4 4 6-7" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Lights come on automatically every night. Zero effort.
+      </div>
+      <!-- Pair 2 -->
+      <div class="stakes-item without">
+        <svg class="stakes-icon-x" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>
+        Tangled cords, blown bulbs, crooked strands
+      </div>
+      <div class="stakes-item with">
+        <svg class="stakes-icon-check" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8l4 4 6-7" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Any color, any schedule, from your phone in seconds
+      </div>
+      <!-- Pair 3 -->
+      <div class="stakes-item without">
+        <svg class="stakes-icon-x" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>
+        Your home dark and plain 10 months a year
+      </div>
+      <div class="stakes-item with">
+        <svg class="stakes-icon-check" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8l4 4 6-7" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Your home stands out 365 nights a year
+      </div>
+      <!-- Pair 4 -->
+      <div class="stakes-item without">
+        <svg class="stakes-icon-x" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>
+        Miss every holiday, every game night, every occasion
+      </div>
+      <div class="stakes-item with">
+        <svg class="stakes-icon-check" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8l4 4 6-7" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Every holiday nailed. Every occasion covered. Automatically.
+      </div>
+      <!-- Pair 5 -->
+      <div class="stakes-item without">
+        <svg class="stakes-icon-x" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>
+        Another year goes by. Same routine. Nothing changes.
+      </div>
+      <div class="stakes-item with">
+        <svg class="stakes-icon-check" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8l4 4 6-7" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        One install. One afternoon. Done for the next thirty years.
       </div>
     </div>
   </section>
@@ -1844,6 +1851,8 @@
         track.style.animationPlayState = 'running';
       });
     })();
+
   </script>
+</div><!-- .page-wrap -->
 </body>
 </html>
